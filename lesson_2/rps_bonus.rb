@@ -1,3 +1,4 @@
+
 VALID_CHOICES = %w(rock paper scissors Spock lizard).freeze
 VALID_INPUT = %w(r p s S l).freeze
 def prompt(message)
@@ -6,9 +7,9 @@ end
 
 def win?(first, second)
   (first == 'rock' && (second == 'scissors' || second == 'lizard')) ||
-    (first == 'paper' && (second == 'rock' ||second == 'Spock')) ||
-    (first == 'scissors' && (second == 'paper' || second == 'lizard'))||
-    (first == 'lizard' && (second == 'paper' || second == 'Spock'))||
+    (first == 'paper' && (second == 'rock' || second == 'Spock')) ||
+    (first == 'scissors' && (second == 'paper' || second == 'lizard')) ||
+    (first == 'lizard' && (second == 'paper' || second == 'Spock')) ||
     (first == 'Spock' && (second == 'rock' || second == 'scissors'))
 end
 
@@ -23,6 +24,7 @@ def display_result(player, computer)
 end
 
 loop do
+system "clear" || system "cls"
   user_win = 0
   computer_win = 0
   loop do
@@ -58,7 +60,7 @@ loop do
 
     if win?(choice, computer_choice)
       user_win += 1
-    elsif win?(computer_choice,choice)
+    elsif win?(computer_choice, choice)
       computer_win += 1
     end
     display_result(choice, computer_choice)
