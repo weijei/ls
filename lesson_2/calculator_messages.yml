@@ -1,0 +1,10 @@
+# calculator_messages.yml
+
+en:
+  welcome: "Welcome to Calculator! Enter your name:"
+  valid_name: "Make sure to end a valid name."
+  first_number: "What's the first number?"
+
+cht:
+  welcome: "歡迎使用計算機！請輸入你的名字："
+# ... rest of file omitted for brevity
