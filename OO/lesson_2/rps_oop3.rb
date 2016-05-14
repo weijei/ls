@@ -90,7 +90,7 @@ class Human < Player
       puts "Sorry, invalid please do again"
     end
     self.move = Move.new(choice)
-    self.move_history << self.move
+    move_history << move
   end
 end
 
@@ -102,7 +102,7 @@ class Computer < Player
   def choose
     mv = Move::VALUES.sample
     self.move = Move.new(mv)
-    self.move_history << self.move
+    move_history << move
   end
 end
 
@@ -151,8 +151,8 @@ class RPSGame
       puts "must be y or n."
     end
 
-    return false if answer.downcase == 'n'
-    return true if answer.downcase == 'y'
+    return false if answer.casecmp('n') == 0
+    return true if answer.casecmp('y') == 0
   end
 
   def display_record
@@ -200,7 +200,6 @@ class RPSGame
       n += 1
       break if n == human.move_history.size
     end
-
   end
 
   def reset
@@ -209,7 +208,6 @@ class RPSGame
     human.move_history = []
     computer.move_history = []
   end
-
 end
 
 RPSGame.new.play
