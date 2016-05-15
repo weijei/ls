@@ -38,16 +38,6 @@ class Move
       (spock? && other_move.scissors?)
   end
 
-  def padding_name
-    case @value
-    when 'rock' then 'rock   '
-    when 'spock' then 'spock  '
-    when 'paper' then 'paper  '
-    when 'lizard' then 'lizard '
-    else @value
-    end
-  end
-
   def to_s
     @value
   end
@@ -194,9 +184,9 @@ class RPSGame
     history = human.move_history.zip(computer.move_history)
     puts "#{human.name}'s battle history:"
     puts "------------------------------------------------"
-    puts "Round        \t\ #{human.name} \t\      \t\ #{computer.name} \t\     "
+    puts "Round        \t\ #{human.name.ljust(10, ' ')} \t\  \t\ #{computer.name.ljust(10, ' ')} \t\     "
     history.each do |h_mv, c_mv|
-      puts "#{human.move_history.index(h_mv)}        \t\ #{h_mv.padding_name.to_s} \t\  \t\ #{c_mv.padding_name.to_s} \t\ "
+      puts "#{human.move_history.index(h_mv).ljust(2, ' ')}        \t\ #{h_mv.to_s.ljust(7, ' ')} \t\  \t\ #{c_mv.to_s.ljust(7, ' ')} \t\ "
     end
   end
 
