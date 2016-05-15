@@ -38,7 +38,7 @@ class Move
       (spock? && other_move.scissors?)
   end
 
-  def name
+  def padding_name
     case @value
     when 'rock' then 'rock   '
     when 'spock' then 'spock  '
@@ -47,12 +47,6 @@ class Move
     else @value
     end
   end
-
-  # def <(other_move)
-  #   (rock? && other_move.paper?) ||
-  #     (paper? && other_move.scissors?) ||
-  #     (scissors? && other_move.rock?)
-  # end
 
   def to_s
     @value
@@ -133,7 +127,7 @@ class RPSGame
         display_move
         display_winner
         update_score
-        break if human.score == 5 || computer.score == 5
+        break if human.score == 3 || computer.score == 3
       end
       display_final_winner
       display_moving_histroy
@@ -171,9 +165,9 @@ class RPSGame
 
   def display_final_winner
     display_record
-    if human.score == 5
+    if human.score == 3
       puts "#{human.name} wins this series!"
-    elsif computer.score == 5
+    elsif computer.score == 3
       puts "#{computer.name} wins this series!"
     end
   end
@@ -197,15 +191,12 @@ class RPSGame
   end
 
   def display_moving_histroy
+    history = human.move_history.zip(computer.move_history)
     puts "#{human.name}'s battle history:"
     puts "------------------------------------------------"
-    puts "Round        \t\ #{human.name} \t\        \t\ #{computer.name} \t\     "
-    puts "------------------------------------------------"
-    n = 0
-    loop do
-      puts " #{n + 1}       \t\ #{human.move_history[n].name} \t\    \t\ #{computer.move_history[n].name} \t\ "
-      n += 1
-      break if n == human.move_history.size
+    puts "Round        \t\ #{human.name} \t\      \t\ #{computer.name} \t\     "
+    history.each do |h_mv, c_mv|
+      puts "#{human.move_history.index(h_mv)}        \t\ #{h_mv.padding_name.to_s} \t\  \t\ #{c_mv.padding_name.to_s} \t\ "
     end
   end
 
