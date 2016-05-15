@@ -38,7 +38,7 @@ class Move
       (spock? && other_move.scissors?)
   end
 
-  def change_digit
+  def name
     case @value
     when 'rock' then 'rock   '
     when 'spock' then 'spock  '
@@ -132,6 +132,7 @@ class RPSGame
         computer.choose
         display_move
         display_winner
+        update_score
         break if human.score == 5 || computer.score == 5
       end
       display_final_winner
@@ -180,12 +181,18 @@ class RPSGame
   def display_winner
     if human.move > computer.move
       puts "#{human.name} Won."
-      human.score += 1
     elsif computer.move > human.move
       puts "#{computer.name} Won"
-      computer.score += 1
     else
       puts "It's tie."
+    end
+  end
+
+  def update_score
+    if human.move > computer.move
+      human.score += 1
+    elsif computer.move > human.move
+      computer.score +=1
     end
   end
 
@@ -196,7 +203,7 @@ class RPSGame
     puts "------------------------------------------------"
     n = 0
     loop do
-      puts " #{n + 1}       \t\ #{human.move_history[n].change_digit} \t\    \t\ #{computer.move_history[n]} \t\ "
+      puts " #{n + 1}       \t\ #{human.move_history[n].name} \t\    \t\ #{computer.move_history[n].name} \t\ "
       n += 1
       break if n == human.move_history.size
     end
