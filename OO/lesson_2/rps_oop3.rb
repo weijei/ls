@@ -186,7 +186,7 @@ class RPSGame
     puts "------------------------------------------------"
     puts "Round        \t\ #{human.name.ljust(10, ' ')} \t\  \t\ #{computer.name.ljust(10, ' ')} \t\     "
     history.each do |h_mv, c_mv|
-      puts "#{human.move_history.index(h_mv).to_s.ljust(2, ' ')}        \t\ #{h_mv.to_s.ljust(7, ' ')} \t\  \t\ #{c_mv.to_s.ljust(7, ' ')} \t\ "
+    puts "#{human.move_history.index(h_mv).to_s.ljust(2, ' ')}        \t\ #{h_mv.to_s.ljust(7, ' ')} \t\  \t\ #{c_mv.to_s.ljust(7, ' ')} \t\ "
     end
   end
 
