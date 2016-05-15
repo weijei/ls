@@ -117,7 +117,7 @@ class RPSGame
         display_move
         display_winner
         update_score
-        break if human.score == 3 || computer.score == 3
+        break if human.score == 10 || computer.score == 10
       end
       display_final_winner
       display_moving_histroy
@@ -155,9 +155,9 @@ class RPSGame
 
   def display_final_winner
     display_record
-    if human.score == 3
+    if human.score == 10
       puts "#{human.name} wins this series!"
-    elsif computer.score == 3
+    elsif computer.score == 10
       puts "#{computer.name} wins this series!"
     end
   end
@@ -186,7 +186,7 @@ class RPSGame
     puts "------------------------------------------------"
     puts "Round        \t\ #{human.name.ljust(10, ' ')} \t\  \t\ #{computer.name.ljust(10, ' ')} \t\     "
     history.each do |h_mv, c_mv|
-      puts "#{human.move_history.index(h_mv).ljust(2, ' ')}        \t\ #{h_mv.to_s.ljust(7, ' ')} \t\  \t\ #{c_mv.to_s.ljust(7, ' ')} \t\ "
+      puts "#{human.move_history.index(h_mv).to_s.ljust(2, ' ')}        \t\ #{h_mv.to_s.ljust(7, ' ')} \t\  \t\ #{c_mv.to_s.ljust(7, ' ')} \t\ "
     end
   end
 
