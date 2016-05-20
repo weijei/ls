@@ -1,0 +1,41 @@
+#11 There are two major uses for self. 1)Within the class, self was called by an instance method, it will return calling object. That is, if self is within a method, it will be treated as calling the object itself. 2) On the other hand, if self is outside of the instance method, it actually calling class itself. The key to differentiate is its inside a instance method or not.
+
+Block
+#2 - Now I get the point. The question is asking about two major use. not how I use the block for two cases. Here's my answers:
+
+1. Defer some implementation code to method invocation decision.
+
+```ruby
+def map(arr)
+  new_arr = []
+  counter = 0
+  size = arr.size
+  while counter < size
+   new_arr << yield(arr[counter])
+   counter += 1
+  end
+  new_arr
+end
+
+[1,2,3].map { |num| num + 1 }
+=> [2,3,4]
+```
+Take this map method for example. Method implementor could build a method called map and let the method caller decide what to do for this function. In the map case, the caller might want to add 2 or mutiply by 3 for each item. The caller will be better understand what exactly they need.
+
+2. In the situation that method need to perform "before" and "after" action.
+
+```ruby
+def time_it
+  time_before = Time.now
+  yield
+  time_after= Time.now
+
+  puts "It took #{time_after - time_before} seconds."
+end
+
+time_it {sleep(3)}
+```
+
+In this case, we need to know how much time it take for some action. Then we could use this block to know the gap between before and after. The other case is we want to open file and ensure it will close after the execution is complete.
+
+

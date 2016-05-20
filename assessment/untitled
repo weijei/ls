@@ -1,0 +1,137 @@
+
+Hi Brandon,
+
+Please review my correction on the answers. There's something wrong with previous submission. This will be the correct version. Please let me know if any further revision is required.
+
+#4. Module usually includes methods which we could use in multiple classes. If we find a method or status which could only valid parts of the class chain say in mother class and one of the sub-class. In this scenarios, we could use module to mixin to ensure those method and attribute will only be used by valid classes. However, there is one limitation for module as it cannot create object or say initialize a new project in module. That's different from Class.
+
+
+
+#11. Looking at the final code of the previous question, describe why self can be used both to define a class method and invoke an instance method. Explain how self works here.
+
+We use self here to call setter methods from in the class. Self was necessary for our change_info method to work functionaly. We need to have this self to allow Ruby to distiguish between a local variable and calling a setter method.
+
+For the class method, the def self.method will tell the system that this is a class method. In this case, this method will be called on class level only. Person.count_total is a class method which is to get total number of Person object we created. It could only be called by class itself (in this case, it is Person) and cannot be called on objects.
+
+#12.
+
+```ruby
+
+module MgmtPrefix
+  def name
+    "#{@title} #{@name}"
+  end
+end
+
+
+class Employee
+  attr_reader :name, :location, :holiday, :location, :delegate
+  def initialize(name, fulltime, title, location,delegate)
+    @name = name
+    @fulltime = fulltime
+    @title = title
+    @holiday = holiday
+    @location = location
+    @delegate = delegate
+  end
+end
+
+class Fulltime < Employee
+  # include Holiday
+  def initialize(name, title, location, holiday,delegate)
+    super(name, true, title, location, delegate)
+    @holiday = holiday
+  end
+end
+
+class Executive < Fulltime
+  include MgmtPrefix
+  def initialize(name)
+    super(name,"Exe","Corner Office", 20, true)
+  end
+
+end
+
+class Manager < Fulltime
+  include MgmtPrefix
+  def initialize(name)
+    super(name, "Mgr","Private Office",14, true)
+  end
+end
+
+class RegularEmployee < Fulltime
+  def initialize(name)
+    super(name, "","Cubic Farm",10, false)
+  end
+end
+
+class PartTimer < Employee
+  def initialize(name)
+    super(name, false, nil,'Open workspace',false)
+  end
+end
+
+george = Executive.new("George")
+john = Manager.new("John")
+emily = PartTimer.new("Emily")
+jack = RegularEmployee.new("Jack")
+
+puts george.name
+puts george.holiday
+puts jack.location
+puts emily.location
+puts jack.name
+puts jack.holiday
+puts george.location
+puts george.delegate
+```
+
+Block
+
+#1. Explain what a closure is, and why do we say that it's at the core of understanding local variable scope?
+
+Blocks are a chunk of code which we pick up and drop into another method as input. We could declare a block by using {} or use do .. end. and in the method, we could use yield to process the chunk of code outside of methods.
+
+It's core to understanding variable scope as it binding charactertics. We could say "binding" it's a way to keep track and access variables outside the block/Procs and when it is called the variables are updated and with latest value.
+
+#2. Explain the 2 major use cases for implementing a method that can take a block. Use code to illustrate your explanation.
+
+I just award that I misunderstood the requirement for this question. Here's the revised one.
+
+=>1
+```ruby
+def each(arr)
+  counter = 0
+  size = arr.size
+  while counter < size
+   yield(arr[counter])
+   counter += 1
+  end
+  arr
+end
+
+[1,2,3].each { |num| puts num }
+1
+2
+3
+=> [1,2,3]
+```
+the first case is same as each method. In this method we will iterate all the item and send arr[counter] to the block to process. When iterate completes, it will return original arr.
+
+```ruby
+def map(arr)
+  new_arr = []
+  counter = 0
+  size = arr.size
+  while counter < size
+   new_arr << yield(arr[counter])
+   counter += 1
+  end
+  new_arr
+end
+
+[1,2,3].map { |num| num + 1 }
+=> [2,3,4]
+```
+2nd case is map. in this case we iterate the arr, send arr[counter] to the block and create a new arr to collect the result of block. And in the end it will return a new array.
+
