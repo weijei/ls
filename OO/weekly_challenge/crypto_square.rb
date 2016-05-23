@@ -1,48 +1,49 @@
-require 'pry'
-
-class CrptoTest
+class Crypto
   attr_accessor :string
 
   def initialize(string)
     @string = string
   end
 
-  def normalized_string
-    @string.downcase.gsub(/\W/, '')
+  def normalize_plaintext
+    @string.gsub(/[\W]/, '').downcase
   end
 
-  def square_size
-    size = normalized_string.chars.size
-    n = 0
+  def size
+    string_size = normalize_plaintext.chars.size
+    square_size = 0
     loop do
-      n += 1
-      break if n * n > size
+      square_size += 1
+      break if square_size * square_size >= string_size
     end
-    n
+    square_size
   end
 
-  def to_array
-    normalized_string.scan(/.{1,#{square_size}}/)
+  def plaintext_segments
+    normalize_plaintext.scan(/.{1,#{size}}/)
   end
 
   def array_to_sqaure
-    new_arr = to_array.map { |row| row.split('') }
+    new_arr = plaintext_segments.map { |row| row.split('') }
     loop do
+      break if new_arr.last.size == size
       new_arr.last.push("")
-      break if new_arr.last.size == square_size
     end
     new_arr
   end
 
-  def cypto_text
-    array_to_sqaure.transpose.join
+  def ciphertext
+    array_to_sqaure.transpose
   end
 
+  def normalize_ciphertext
+    ciphertext.map { |value| value.join("") }.join(" ")
+  end
 
 end
 
-string_1 = CrptoTest.new("i'm a good student.")
-p string_1.cypto_text
+string_1 = Crypto.new("If man was meant to stay on the ground god would have given us roots")
+p string_1.normalize_ciphertext
 
 
 
